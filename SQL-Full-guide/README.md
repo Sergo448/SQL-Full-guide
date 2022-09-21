@@ -1,0 +1,1 @@
+Here will be my progress in studiing SQL 
