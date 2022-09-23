@@ -1,3 +1,0 @@
-how to launch?
-
-write in terminal "$sqlitebrowser" for launch sqlitebrowser
