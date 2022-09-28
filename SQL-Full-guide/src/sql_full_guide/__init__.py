@@ -1,18 +1,27 @@
-# db -> './DATA_SQL/Database_book_A.sqbpro'
-# Sergo448
+# -*- coding: utf-8 -*-
 # Sergey.6362@mail.ru
+
+
 import re
-# imports
 import sqlite3
 
-# connecting to the database
-db = sqlite3.connect('./DATA_SQL/Database_book_A.sqbpro')
+# создаем подключение к нашей базе данных
+conn = sqlite3.connect('./DATA_SQL/Database_book_A.sqlite')
 
-# Quiery
-stmt = "SELECT NAME, HIRE_DATE" + '\n' + \
-       "FROM SALESREPS" + '\n' + \
-       "WHERE HIRE_DATE >= '05/30/2007' + 15 DAYS;"
+# Создаем курсор - это специальный объект который делает запросы и получает их результаты
+cursor = conn.cursor()
 
-stmt = re.sub('\s+', ' ', stmt.replace('\n', ' ').replace('\r', ''))
-print(db.cursor(stmt))
-print(db.execute(stmt))
+# ТУТ БУДЕТ НАШ КОД РАБОТЫ С БАЗОЙ ДАННЫХ
+
+""" First example """
+# Делаем INSERT запрос к базе данных, используя обычный SQL-синтаксис
+cursor.execute("SELECT NAME, HIRE_DATE FROM SALESREPS WHERE HIRE_DATE >= '05/30/2007' + 15")
+
+# Если мы не просто читаем, но и вносим изменения в базу данных - необходимо сохранить транзакцию
+# conn.commit()
+
+results = cursor.fetchall()
+print(results)
+
+# Не забываем закрыть соединение с базой данных
+conn.close()
