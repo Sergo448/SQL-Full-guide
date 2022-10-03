@@ -1,17 +1,10 @@
-# -*- coding: utf-8 -*-
-# Sergey.6362@mail.ru
-
-
-import sqlite3
-
-quiery = """
-
 DROP TABLE CUSTOMERS;
 DROP TABLE OFFICES;
 DROP TABLE ORDERS;
 DROP TABLE PRODUCTS;
 DROP TABLE SALESREPS;
-	
+			
+			
 			CREATE TABLE PRODUCTS
             (MFR_ID CHAR(3) NOT NULL,
             PRODUCT_ID CHAR(5) NOT NULL,
@@ -71,12 +64,3 @@ DROP TABLE SALESREPS;
             ON DELETE SET NULL,
             CONSTRAINT ISFOR FOREIGN KEY (MFR, PRODUCT) REFERENCES PRODUCTS(MFR_ID, PRODUCT_ID)
             ON DELETE RESTRICT);
-"""
-
-
-# Без данной строки ключи не работают
-quiery_anty_error = "PRAGMA foreign_keys = OFF;"
-
-# Тут дальше должен быть код использующий функционал питона для
-# реализации SQL запросов, но его не будет, т.к. база данных
-# была полностью сделана в DB SQLite browser
