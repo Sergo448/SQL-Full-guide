@@ -5,12 +5,6 @@
 import sqlite3
 
 quiery = """
-            --DROP TABLE PRODUCTS;
-            --DROP TABLE SALEREPS;
-            --DROP TABLE OFFICES;
-            --DROP TABLE CUSTOMERS;
-            --DROP TABLE ORDERS;
-            
             CREATE TABLE PRODUCTS
             (MFR_ID CHAR(3) NOT NULL,
             PRODUCT_ID CHAR(5) NOT NULL,
@@ -19,7 +13,7 @@ quiery = """
             QTY_ON_HAND INTEGER NOT NULL,
             primary key (MFR_ID, PRODUCT_ID));
             
-            CREATE TABLE SALEREPS
+            CREATE TABLE SALESREPS
             (EMPL_NUM INTEGER NOT NULL,
             NAME VARCHAR (15) NOT NULL,
             AGE INTEGER,
@@ -43,7 +37,7 @@ quiery = """
             MGR INTEGER, TARGET DECIMAL(9,2),
             SALES DECIMAL(9,2) NOT NULL,
             PRIMARY KEY (OFFICE),
-            CONSTRAINT HASMGR FOREIGN KEY (MGR) REFERENCES SALEREPS(EMPL_NUM)
+            CONSTRAINT HASMGR FOREIGN KEY (MGR) REFERENCES SALESREPS(EMPL_NUM)
             ON DELETE SET NULL);
             
             CREATE TABLE CUSTOMERS
@@ -67,7 +61,7 @@ quiery = """
             primary key (ORDER_NUM),
             CONSTRAINT PLACEDBY FOREIGN KEY (CUST) REFERENCES CUSTOMERS(CUST_NUM)
             ON DELETE CASCADE,
-            CONSTRAINT TAKENBY FOREIGN KEY (REP) REFERENCES SALEREPS(EMPL_NUM)
+            CONSTRAINT TAKENBY FOREIGN KEY (REP) REFERENCES SALESREPS(EMPL_NUM)
             ON DELETE SET NULL,
             CONSTRAINT ISFOR FOREIGN KEY (MFR, PRODUCT) REFERENCES PRODUCTS(MFR_ID, PRODUCT_ID)
             ON DELETE RESTRICT);
