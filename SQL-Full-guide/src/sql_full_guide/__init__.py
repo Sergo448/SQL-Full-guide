@@ -24,14 +24,21 @@ FROM SALESREPS
 WHERE HIRE_DATE >= '05/30/2007';
 """
 
+quiery_1_2 = "SELECT NAME, HIRE_DATE FROM SALESREPS WHERE HIRE_DATE >= '2007-05-30';"
+quiery_2 = ""
+
+
 # Делаем запрос к базе данных, используя обычный SQL-синтаксис
-cursor.executescript(quiery_1_1)
+cursor.execute(quiery_1_2)
 
 # Если мы не просто читаем, но и вносим изменения в базу данных - необходимо сохранить транзакцию
 # conn.commit()
 
 results = cursor.fetchall()
 print(results)
+print('-----------------')
+for s in results:
+    print(s)
 
 # Не забываем закрыть соединение с базой данных
 conn.close()

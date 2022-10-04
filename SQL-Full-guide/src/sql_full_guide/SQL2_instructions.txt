@@ -1,0 +1,20 @@
+BIT_LENGTH (string) - кол-во битов в битовой строке
+CAST (value AS dtype) - Значение, преобразованное в указанный тип даных
+CHAR_LENGTH (string) - Длина строки символов
+CONVERT (string USING function) - Строка, преобразованная в соответствии с указанной функцией
+CURRENT_DATE - Текущая дата
+CURRENT_TIME (accuracy) - Текущее время с указанной точностью
+CURRENT_TIMESTAMP (accuracy) - Текущие дата и время с указанной точностью
+EXTRACT (part FROM value) - Указанная часть (ДЕНЬ, ЧАС, и т.д.) из значения типа ДАЙТАЙМ
+LOWER (string) - Строка, переведенная в нижний регистр
+OCTET_LENGTH (string) - Число 8-битовых байтов в строке символов
+POSITION (understring IN string) - Позиция, с которой начинается вхождение подстроки в строку
+SUBSTRING (string FROM n FOR length) - Часть строки, начинающаяся с н символа и имеющая указанную длину
+TRANSLATE (string USING function) - Строка, транслированная с помощью указанной функции
+TRIM (BOTH simbol FROM string) - Строка, из которой удалены ведущие и конечные указанные символы
+TRIM (LEADING simbol FROM string) - Строка, из которой удалены ведущие указанные символы
+TRIM (TRAILING simbol FROM string) - Строка, из которой удалены конечные указанные символы
+UPPER (string) - Строка, переведенная в верхний регистр
+
+
+Стандартные встроенные функции SQL
