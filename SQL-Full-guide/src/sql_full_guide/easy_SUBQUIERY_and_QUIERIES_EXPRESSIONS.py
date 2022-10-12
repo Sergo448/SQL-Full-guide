@@ -312,11 +312,43 @@ quiery_27 = f"SELECT DESCRIPTION, PRICE FROM PRODUCTS" \
 quiery_27_1 = f"SELECT DISTINCT DESCRIPTION, PRICE FROM PRODUCTS, ORDERS" \
               f" WHERE (MFR_ID = MFR) AND (PRODUCT_ID = PRODUCT) AND (AMOUNT > 20000.00);"
 
+"""
+        JOIN() - из двух входных таблиц создает выходную таблицу результатов запроса 
+        в соответствии с спецификацией соединения
+        UNION() - из двух входных таблиц создает выходную объединенную таблицу результатов запроса
+        EXCEPT() - Из двух входных таблиц получает выходную, содержащую все строки, 
+        которые имеются в 1й, но отсутствуют во 2й.
+        INTERSECT() - Генерирует выходную таблицу из двух входных, содержащую все строки,
+        которые имеются в двух входных таблицах.
+"""
 
+quiery_28 = f"(SELECT MFR, PRODUCT FROM ORDERS" \
+            f"  WHERE AMOUNT > 30000.00) " \
+            f" UNION" \
+            f"(SELECT MFR_ID, PRODUCT_ID FROM PRODUCTS " \
+            f"  WHERE (PRICE * QTY_ON_HAND) > 30000);"
+quiery_29 = f"(SELECT MFR, PRODUCT FROM ORDERS" \
+            f"  WHERE AMOUNT > 30000.00) " \
+            f" INTERSECT" \
+            f"(SELECT MFR_ID, PRODUCT_ID FROM PRODUCTS " \
+            f"  WHERE (PRICE * QTY_ON_HAND) > 30000);"
+quiery_30 = f"(SELECT MFR, PRODUCT FROM ORDERS" \
+            f"  WHERE AMOUNT > 30000.00) " \
+            f" EXCEPT" \
+            f"(SELECT MFR_ID, PRODUCT_ID FROM PRODUCTS " \
+            f"  WHERE PRICE < 100.00);"
+
+
+# Запросы в предложении FROM
+# Вывести имена и общие суммы заказов для всех клиентов, чей лимит кредита больше 50 000
+quiery_31 = f"SELECT COMPANY, TOT_ORDERS " \
+            f" FROM CUSTOMERS, (SELECT CUST, SUM(AMOUNT) AS TOT_ORDERS FROM ORDERS GROUP BY CUST)" \
+            f" WHERE (CREDIT_LIMIT > 50000.00)" \
+            f" AND (CUST_NUM = CUST); "
 
 # Делаем запрос к базе данных, используя обычный SQL-синтаксис
 # cursor.execute(quiery_12)
-cursor.execute(quiery_27_1)
+cursor.execute(quiery_31)
 
 # !------------------!------------------!------------------!------------------!------------------!
 # Если мы не просто читаем, но и вносим изменения в базу данных - необходимо сохранить транзакцию
