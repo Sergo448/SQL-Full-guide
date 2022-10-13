@@ -5,8 +5,9 @@
 import re
 import sqlite3
 
+
 # создаем подключение к нашей базе данных
-conn = sqlite3.connect('./DATA_SQL/DATA_BOOK_A')
+conn = sqlite3.connect('./DATA_SQL/DATA_BOOK_A', timeout=10)
 
 # Создаем курсор - это специальный объект который делает запросы и получает их результаты
 cursor = conn.cursor()
@@ -51,13 +52,50 @@ quiery_4_2 = f"INSERT INTO SALESREPS " \
 quiery_5 = f"INSERT INTO OLDORDERS (ORDER_NUM, ORDER_DATE, AMOUNT)" \
            f" SELECT ORDER_NUM, ORDER_DATE, AMOUNT FROM ORDERS" \
            f" WHERE ORDER_DATE < '2008-01-01';"
+quiery_6 = f"INSERT OR IGNORE INTO BIGORDERS (AMOUNT, COMPANY, NAME, PERF, PRODUCT, MFR, QTY)" \
+           f" SELECT AMOUNT, COMPANY, NAME, (SALES - QUOTA), PRODUCT, MFR, QTY" \
+           f" FROM ORDERS, CUSTOMERS, SALESREPS" \
+           f" WHERE CUST = CUST_NUM" \
+           f" AND REP = EMPL_NUM" \
+           f" AND AMOUNT > 15000.00;"
+
+"""
+            DELETE()
+"""
+
+quiery_7 = f"DELETE FROM SALESREPS" \
+           f" WHERE NAME = 'Henry Jacobsen';"
+quiery_8 = f"DELETE FROM ORDERS WHERE CUST = 2126;"
+quiery_9 = f"DELETE FROM ORDERS WHERE ORDER_DATE < '2007-11-15;"
+quiery_10 = f"DELETE FROM CUSTOMERS WHERE CUST_REP IN (105, 109, 101);"
+quiery_11 = f"DELETE FROM SALESREPS WHERE HIRE_DATE < '2006-07-01' AND QUOTA IS NULL;"
+quiery_12 = f"DELETE FROM ORDERS;"
+
+quiery_13 = f"DELETE FROM ORDERS " \
+            f" WHERE REP = (SELECT EMPL_NUM FROM SALESREPS WHERE NAME = 'Sue Smith');"
+quiery_14 = f"DELETE FROM CUSTOMERS WHERE CUST_REP IN" \
+            f" (SELECT EMPL_NUM FROM SALESREPS WHERE SALES < (0.8 * QUOTA));"
+quiery_15 = f"DELETE FROM SALESREPS" \
+            f" WHERE (0.02 * QUOTA) > (SELECT SUM(AMOUNT) FROM ORDERS WHERE REP = EMPL_NUM);"
+quiery_16 = f"DELETE FROM CUSTOMERS " \
+            f" WHERE NOT EXISTS " \
+            f"      (SELECT * FROM ORDERS" \
+            f"          WHERE CUST = CUST_NUM AND ORDER_DATE > '2007-11-10');"
+"""
+            UPDATE()
+"""
+
+quiery_17 = f"UPDATE CUSTOMERS SET CREDIT_LIMIT = 60000.00, CUST_REP = 109 WHERE COMPANY = 'Acme Mfg.';"
+
+
+
 
 
 
 
 # Делаем запрос к базе данных, используя обычный SQL-синтаксис
 # cursor.execute(quiery_12)
-cursor.execute(quiery_4)
+cursor.execute(quiery_17)
 
 # !------------------!------------------!------------------!------------------!------------------!
 # Если мы не просто читаем, но и вносим изменения в базу данных - необходимо сохранить транзакцию
