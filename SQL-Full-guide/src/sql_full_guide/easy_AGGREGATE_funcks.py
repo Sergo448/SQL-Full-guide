@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Sergey.6362@mail.ru
-
+# SQL-Full-guide/src/sql_full_guide/easy_AGGREGATE_funcks.py
 
 import re
 import sqlite3

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Sergey.6362@mail.ru
-
+# SQL-Full-guide/src/sql_full_guide/easy_MANY_TABLES.py
 
 import re
 import sqlite3

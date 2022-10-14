@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Sergey.6362@mail.ru
+# SQL-Full-guide/src/sql_full_guide/easy_SELECT.py
 
 import sqlite3
 
