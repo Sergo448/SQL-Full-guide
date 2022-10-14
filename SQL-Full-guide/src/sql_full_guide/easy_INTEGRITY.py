@@ -193,6 +193,68 @@ quiery_6_2 = f"SET CONSTRAINTS quota_totals DEFERRED" \
              f" WHERE (OFFICE = :office_num);" \
              f"" \
              f"COMMIT;"
+
+"""
+            ТРИГГЕРЫ
+            
+        С любым событием, вызывающим изменение содержимого таблицы,
+        пользователь может связать действие (триггер), которое СУБД
+        должна выполнять при каждом возникновении события.
+"""
+
+quiery_7 = f"CREATE TRIGGER (NEWORDER)" \
+           f" ON ORDERS" \
+           f" FOR INSERT" \
+           f" AS UPDATE SALESREPS" \
+           f"   SET SALES = SALES + INSERTED.AMOUNT" \
+           f"   FROM SALESREPS, INSERTED" \
+           f"   WHERE SALESREPS.EMPL_NUM = INSERTED.REP" \
+           f"   UPDATE PRODUCTS" \
+           f"   SET QTY_ON_HAND = QTY_ON_HAND - INSERTED.QTY" \
+           f"   FROM PRODUCTS, INSERTED" \
+           f"   WHERE PRODUCTS.MFR_ID = INSERTED.MFR" \
+           f"   AND PRODUCTS.PRODUCT_ID = INSERTED.PRODUCT; "
+"""
+    quiery_7 говорит, что триггер вызывается каждый раз, когда к таблице 
+    ORDERS обращается инструкция INSERT. В оставшейся части определения 
+    (после слова AS) описывается действие, выполняемое триггером. В 
+    данном случае это действие представляет собой последовательность двух
+    инструкций UPDATE... Ссылка на добавляемую строку делается с помощью 
+    имени псевдотаблицы INSERTED внутри инструкциий UPDATE.
+    Кроме того,  могут присутствовать следующие инструкции: IF/ THEN/ ELSE,
+    циклы, вызовы процедур и даже PRINT.  
+"""
+
+quiery_8 = f"CREATE TRIGGER REP_UPDATE" \
+           f" ON SALESREPS" \
+           f" FOR INSERT, UPDATE" \
+           f" AS IF ((SELECT COUNT(*)" \
+           f"           FROM OFFICES, INSERTED" \
+           f"           WHERE OFFICES.OFFICE = INSERTED.REP_OFFICE) = 0)" \
+           f"       BEGIN" \
+           f"           PRINT('УКАЗАН неверный идентификатор офиса.'" \
+           f"           ROLLBACK TRANSACTION" \
+           f"       END;"
+
+quiery_9 = f"CREATE TRIGGER CHANGE_REP_OFFICE" \
+           f" ON OFFICES" \
+           f" FOR UPDATE" \
+           f" AS IF UPDATE (OFFICE)" \
+           f"           BEGIN" \
+           f"               UPDATE SALESREPS" \
+           f"                   SET SALESREPS.REP_OFFICE = INSERTED.OFFICE" \
+           f"                   FROM SALESREPS, INSERTED, DELETED" \
+           f"                   WHERE SALESREPS.REP_OFFICE = DELETED.OFFICE" \
+           f"            END;"
+
+"""
+            TRIGGER очень мощное правило
+            которое не ограничивается парой строк.
+            Может занимать сотни строчек кода для 
+            обеспечения работы бизнес правил.
+            
+"""
+
 # Делаем запрос к базе данных, используя обычный SQL-синтаксис
 # cursor.execute(quiery_12)
 cursor.execute(quiery_5)
