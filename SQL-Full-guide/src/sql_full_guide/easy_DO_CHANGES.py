@@ -87,15 +87,29 @@ quiery_16 = f"DELETE FROM CUSTOMERS " \
 
 quiery_17 = f"UPDATE CUSTOMERS SET CREDIT_LIMIT = 60000.00, CUST_REP = 109 WHERE COMPANY = 'Acme Mfg.';"
 
+quiery_18 = f"UPDATE SALESREPS SET REP_OFFICE = 11, QUOTA = .9 * QUOTA WHERE REP_OFFICE = 12;"
 
+quiery_19 = f"UPDATE CUSTOMERS SET CUST_REP = 102 WHERE CUST_REP IN (105, 106, 107);"
+quiery_20 = f"UPDATE SALESREPS SET QUOTA = 10000.00 WHERE QUOTA IS NULL;"
+quiery_21 = f"UPDATE SALESREPS SET QUOTA = 1.05 * QUOTA;"
 
+quiery_22 = f"UPDATE CUSTOMERS " \
+            f" SET CREDIT_LIMIT = CREDIT_LIMIT + 5000.0" \
+            f" WHERE CUST_NUM IN (" \
+            f"  SELECT DISTINCT CUST FROM ORDERS WHERE AMOUNT > 25000.00" \
+            f" );"
 
+quiery_23 = f"UPDATE CUSTOMERS SET CUST_REP = 105" \
+            f" WHERE CUST_REP IN" \
+            f" (SELECT EMPL_NUM FROM SALESREPS WHERE SALES < (0.8 * QUOTA));"
 
+quiery_24 = f"UPDATE SALESREPS SET MANAGER = 106" \
+            f" WHERE 3 < (SELECT COUNT(*) FROM CUSTOMERS WHERE CUST_REP = EMPL_NUM);"
 
 
 # Делаем запрос к базе данных, используя обычный SQL-синтаксис
 # cursor.execute(quiery_12)
-cursor.execute(quiery_17)
+cursor.execute(quiery_24)
 
 # !------------------!------------------!------------------!------------------!------------------!
 # Если мы не просто читаем, но и вносим изменения в базу данных - необходимо сохранить транзакцию
