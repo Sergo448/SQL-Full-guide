@@ -1,0 +1,40 @@
+-- SELECT, INSERT, DELETE, UPDATE, COMMIT, ROLLBACK - DML (Data Manipulation Languarge)
+-- DDL (Data Definition Languarge) - в отличии от первых, для создания быз данных и их структур.
+-- Задачи, выполняемые с помощью DDL:
+-- 1) Определение структуры новой таблицы и создания ее;
+-- 2) Удалить таблицу, которая больше не нужна;
+-- 3) Изменить определение существующей таблицы;
+-- 4) Определить виртуальную таблицу (или представление) данных;
+-- 5) Обеспечить безопасность базы данных;
+-- 6) Создать индекс для ускорения доступа к таблице;
+-- 7) Управлять физическим размещение данных.
+
+--CREATE - создать 
+--DROP - удалить
+--ALTER - изменить
+
+-- CREATE / DROP DATABASE - создать или удалить БД
+
+-- Let's create a new one table for oficces and ordres and one domain
+
+CREATE TABLE OFFICES_1_0
+	(
+	OFFICE VALID_OFFICE_ID CHECK (VALUES BETWEEN 11 AND 99) NOT NULL,
+	CITY VARCHAR(15) NOT NULL,
+	REGION VARCHAR(10) NOT NULL,
+	MGR INTEGER,
+	TARGET DECIMAL (9, 2),
+	SALES DESIMAL (9, 2) NOT NULL
+	);
+
+CREATE TABLE ORDERS_1_0
+	(
+	ORDER_NUM INTEGER NOT NULL,
+	ORDER_DATE DATE NOT NULL,
+	CUST INTEGER NOT NULL,
+	REP INTEGER,
+	MFR CHAR(3) NOT NULL,
+	PRODUCT CHAR(5) NOT NULL,
+	QTY INTEGER NOT NULL,
+	AMOUNT DECIMAL (9, 2) NOT NULL
+	);
