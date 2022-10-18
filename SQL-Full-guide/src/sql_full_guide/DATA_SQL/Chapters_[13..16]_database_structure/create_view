@@ -1,0 +1,16 @@
+-- Представления
+
+-- CREATE VIEW nview_name (... / [column_name]) AS quiery (.../ WITH (.../CASCADED/LOCAL) CHECK OPTION) -->
+
+
+-- horozontal VIEWS
+--ограничение доступа пользователей к строкам таблиц, чтобы пользователи могли видеть не все строки, а только некоторые из них.
+
+CREATE VIEW EASTREPS AS 
+	SELECT *
+	FROM SALESREPS WHERE REP_OFFICE IN (11, 12, 13);
+	
+CREATE VIEW WESTREPS AS 
+	SELECT *
+	FROM SALESREPS WHERE REP_OFFICE IN (21, 22);
+	
