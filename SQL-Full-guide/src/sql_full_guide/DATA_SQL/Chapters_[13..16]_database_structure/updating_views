@@ -1,0 +1,27 @@
+-- Представление можно обновить если:
+-- отсутствует предикат DISTINCT (повторяющиеся строки не должны исключаться из таблицы результатов запросов
+-- В предложении FROM должна быть задана только одна обновляемая таблица, т.е. у представления должна быть одна исходная таблица.
+-- Каждое имя в списке возвращаемых столбцов должно быть ссылкой на простой столбец ( не выражения и пр.)
+-- Предложение WHERE не должно содержать подчиненный запрос
+-- В запросе не должны сож=держаться предложения GROUP BY & HAVING
+
+--CREATE VIEW SALESPERF (EMPL_NUM, SALES, QUOTA, DIFF) AS 
+--	SELECT EMPL_NUM, SALES, QUOTA, (SALES - QUOTA) 
+--	FROM SALESREPS;
+--Данное предстаавление невозможно обновить, т.к. 4 столбец вычисляемый
+
+--INSERT INTO EASTREPS (EMPL_NUM, NAME, REP_OFFICE, AGE, HIRE_DATE, SALES)
+--	VALUES (113, 'Jake Kimball', 11, 43, '2009-01-01', 0.00);
+
+--UPDATE EASTREPS SET REP_OFFICE = 21 WHERE EMPL_NUM = 104;
+
+--DROP VIEW EASTREPS;
+
+--CREATE VIEW EASTREPS AS 
+--	SELECT * 
+--	FROM SALESREPS 
+--		WHERE REP_OFFICE IN (11, 12, 13)
+--			WITH CHECK OPTION;
+-- Можно также использовать WITH CASCADE/LOCAL CHECK OPTION
+-- DROP VIEW ... RESTRICT/CASCADE;
+
